@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 import fileinput
 
-INPUT = "input.txt"
-expenses = [int(num.strip()) for num in fileinput.input(INPUT)]
+expenses = [int(num.strip()) for num in fileinput.input("input")]
 
 
 def part1(expenses, target=2020):
@@ -13,10 +12,8 @@ def part1(expenses, target=2020):
         seen.add(value)
 
 
-expenses = set((int(num.strip()) for num in fileinput.input(INPUT)))
-
-
 def part2(expenses: set):
+    expenses = set(expenses)
     target = 2020
     for a in expenses:
         for b in expenses:
