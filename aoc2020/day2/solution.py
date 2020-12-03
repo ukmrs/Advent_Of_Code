@@ -2,31 +2,26 @@
 import fileinput
 import re
 
-database = [line.strip().split(": ") for line in fileinput.input("input")]
-rex = re.compile(r"(\d+)-(\d+)\s([a-z])")
+
+def parse_policy():
+    rex = re.compile(r"(\d+)-(\d+)\s([a-z])")
+    for line in fileinput.input("input"):
+        policy, pw = line.strip().split(": ")
+        lower_bound, upper_bound, char = rex.search(policy).groups()
+        yield int(lower_bound), int(upper_bound), char, pw
 
 
-def part1(db):
-    result = 0
-    for policy, pw in db:
-        a, b, char = rex.search(policy).groups()
-        if int(a) <= pw.count(char) <= int(b):
-            result += 1
+def solution():
+    part1, part2 = 0, 0
+    for a, b, char, pw in parse_policy():
+        if a <= pw.count(char) <= b:
+            part1 += 1
 
-    return result
+        if (pw[a-1] == char) ^ (pw[b-1] == char):
+            part2 += 1
 
-
-def part2(db):
-    valid = 0
-    for policy, pw in db:
-        a, b, char = rex.search(policy).groups()
-        a, b = int(a) - 1, int(b) - 1
-        critical = pw[a] + pw[b]
-        if critical.count(char) == 1:
-            valid += 1
-
-    return valid
+    return part1, part2
 
 
-# print(part1(database))
-print(part2(database))
+ans = solution()
+print(f"part1: {ans[0]}\npart2: {ans[1]}")
