@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-import fileinput
 
-expenses = [int(num.strip()) for num in fileinput.input("input")]
+with open("input") as f:
+    expenses = [int(num.strip()) for num in f.readlines()]
 
 
 def part1(expenses, target=2020):
@@ -21,5 +21,5 @@ def part2(expenses: set):
                 return a * b * (target - a - b)
 
 
-print(part1(expenses))
-print(part2(expenses))
+print(f"part1: {part1(expenses)}")  # 858496
+print(f"part2: {part2(expenses)}")  # 263819430
