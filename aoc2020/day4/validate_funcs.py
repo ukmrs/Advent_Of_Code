@@ -54,14 +54,3 @@ airport_scanner = {
     "pid": vpid,
     "cid": lambda _: True
 }
-
-
-def test():
-    assert _pidex.match("000000999")
-    assert not _pidex.match("0000009991")
-    assert not _pidex.match("00000999")
-
-
-if __name__ == "__main__":
-    vhgt("120m")
-    test()
