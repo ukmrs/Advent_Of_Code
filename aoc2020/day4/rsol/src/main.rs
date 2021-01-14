@@ -57,9 +57,9 @@ impl Field {
             }
             "pid" => {
                 lazy_static! {
-                    static ref EYEX: Regex = Regex::new(r"^\d{9}$").unwrap();
+                    static ref PIDEX: Regex = Regex::new(r"^\d{9}$").unwrap();
                 }
-                EYEX.is_match(&self.value)
+                PIDEX.is_match(&self.value)
             }
             _ => true,
         }
@@ -118,10 +118,10 @@ fn parse_documents(f: &str) -> Vec<Document> {
 }
 
 fn main() {
-    let a = parse_documents("../input");
+    let documents: Vec<Document> = parse_documents("../input");
     let mut part_one: i32 = 0;
     let mut part_two: i32 = 0;
-    for doc in &a {
+    for doc in &documents {
         if doc.first_validation() {
             part_one += 1;
             if doc.second_validation() {
@@ -129,5 +129,5 @@ fn main() {
             }
         }
     }
-    println!("{}, {}", part_one, part_two);
+    println!("one: {}\ntwo: {}", part_one, part_two);
 }
