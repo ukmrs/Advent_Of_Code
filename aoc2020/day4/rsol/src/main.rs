@@ -1,6 +1,6 @@
-use std::fs;
-use regex::Regex;
 use lazy_static::lazy_static;
+use regex::Regex;
+use std::fs;
 
 #[derive(Debug)]
 struct Field {
@@ -31,7 +31,7 @@ impl Field {
                 lazy_static! {
                     static ref HEIGHTEX: Regex = Regex::new(r"(\d+)(in|cm)").unwrap();
                 }
-                if let Some(caps) = HEIGHTEX.captures(&self.value){
+                if let Some(caps) = HEIGHTEX.captures(&self.value) {
                     let height = caps.get(1).unwrap().as_str().parse::<i32>().unwrap();
                     let unit = caps.get(2).unwrap().as_str();
                     if unit == "cm" {
@@ -39,33 +39,28 @@ impl Field {
                     } else {
                         height >= 59 && height <= 76
                     }
-
                 } else {
                     false
                 }
             }
-
             "hcl" => {
                 lazy_static! {
                     static ref HAIREX: Regex = Regex::new(r"^#[a-f0-9]{6}$").unwrap();
                 }
                 HAIREX.is_match(&self.value)
             }
-
             "ecl" => {
                 lazy_static! {
                     static ref EYEX: Regex = Regex::new(r"amb|blu|brn|gry|grn|hzl|oth").unwrap();
                 }
                 EYEX.is_match(&self.value)
             }
-
             "pid" => {
                 lazy_static! {
                     static ref EYEX: Regex = Regex::new(r"^\d{9}$").unwrap();
                 }
                 EYEX.is_match(&self.value)
             }
-
             _ => true,
         }
     }
@@ -106,8 +101,8 @@ impl Document {
     fn second_validation(&self) -> bool {
         for field in &self.fields {
             if !field.is_valid() {
-                return false
-            } 
+                return false;
+            }
         }
         true
     }
