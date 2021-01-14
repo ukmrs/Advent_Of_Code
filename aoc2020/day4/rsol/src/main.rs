@@ -17,20 +17,16 @@ impl Field {
         }
     }
 
+    fn least_and_most(&self, least: i32, most: i32) -> bool {
+        let val: i32 = self.value.parse().unwrap();
+        val >= least && val <= most
+    }
+
     fn is_valid(&self) -> bool {
         match &self.key[..] {
-            "byr" => {
-                let val: i32 = self.value.parse().unwrap();
-                val >= 1920 && val <= 2002
-            }
-            "iyr" => {
-                let val = self.value.parse::<i32>().unwrap();
-                val >= 2010 && val <= 2020
-            }
-            "eyr" => {
-                let val = self.value.parse::<i32>().unwrap();
-                val >= 2020 && val <= 2030
-            }
+            "byr" => self.least_and_most(1920, 2002),
+            "iyr" => self.least_and_most(2010, 2020),
+            "eyr" => self.least_and_most(2020, 2030),
             "hgt" => {
                 lazy_static! {
                     static ref HEIGHTEX: Regex = Regex::new(r"(\d+)(in|cm)").unwrap();
