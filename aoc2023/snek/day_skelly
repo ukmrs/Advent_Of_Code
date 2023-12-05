@@ -1,0 +1,21 @@
+from utils import common
+
+
+def part1(lines: list[str]) -> None:
+    pass
+
+
+def part2(lines: list[str]) -> None:
+    pass
+
+
+def main():
+    lines = common.get_input(__file__)
+    res1 = part1(lines)
+    res2 = part2(lines)
+    print(res1)
+    print(res2)
+
+
+if __name__ == "__main__":
+    main()
